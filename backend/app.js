@@ -8,8 +8,12 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/", (req, res) => {
-  const ip = req.ip;
-  res.json({ ip });
+  const ipAddress = req.headers["x-forwarded-for"];
+  if (ipAddress.startsWith("::ffff:")) {
+    ipAddress = ipAddress.slice(7);
+  }
+
+  res.json({ ipAddress });
 });
 
 app.use("api/getCurrentWeather", () => {
