@@ -8,12 +8,13 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/", (req, res) => {
-  const ipAddress = req.headers["x-forwarded-for"];
-  if (ipAddress.startsWith("::ffff:")) {
-    ipAddress = ipAddress.slice(7);
-  }
+  const ip = req.ip;
+  const host = req.headers["x-forwarded-for"];
+  const userAgent = req.headers["user-agent"];
+  const referer = req.socket.remoteAddress;
+  console.log(host);
 
-  res.json({ ipAddress });
+  res.json({ ip, host: "host", userAgent, referer });
 });
 
 app.use("api/getCurrentWeather", () => {
