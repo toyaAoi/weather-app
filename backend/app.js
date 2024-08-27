@@ -14,7 +14,7 @@ app.use("/", (req, res) => {
   const referer = req.socket.remoteAddress;
   console.log(host);
 
-  res.json({ ip, host: "host", userAgent, referer });
+  res.json({ ip, host, userAgent, referer });
 });
 
 app.use("api/getCurrentWeather", () => {
